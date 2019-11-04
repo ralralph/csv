@@ -1,0 +1,35 @@
+<h1>企業情報一覧</h1>
+<%= form_tag import_facilities_path, multipart: true do%>
+  <%= file_field_tag :file %>
+  <%= submit_tag 'インポート'%>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>名前</th>
+      <th>読み</th>
+      <th>郵便番号</th>
+      <th>住所</th>
+      <th>ホームページ</th>
+      <th>電話番号</th>
+      <th>従業員数</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @facilities.each do |f| %>
+      <tr>
+        <td><%= f.id %></td>
+        <td><%= f.name %></td>
+        <td><%= f.kana %></td>
+        <td><%= f.zipcode %></td>
+        <td><%= f.city %></td>
+        <td><%= f.hp_url %></td>
+        <td><%= f.employees_num %></td>
+        <td><%= f.capital %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
