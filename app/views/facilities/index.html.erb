@@ -1,7 +1,7 @@
 <h1>企業情報一覧</h1>
-<%= form_tag import_facilities_path, multipart: true do%>
-  <%= file_field_tag :file %>
-  <%= submit_tag 'インポート'%>
+<%= form_with url: import_facilities_path, multipart: true do |f|%>
+  <%= f.file_field :file %>
+  <%= f.submit 'インポート'%>
 <% end %>
 
 <table>
@@ -13,8 +13,9 @@
       <th>郵便番号</th>
       <th>住所</th>
       <th>ホームページ</th>
-      <th>電話番号</th>
+      <th>資本金</th>
       <th>従業員数</th>
+      <th>都道府県</th>
     </tr>
   </thead>
 
@@ -27,8 +28,9 @@
         <td><%= f.zipcode %></td>
         <td><%= f.city %></td>
         <td><%= f.hp_url %></td>
-        <td><%= f.employees_num %></td>
         <td><%= f.capital %></td>
+        <td><%= f.employees_num %></td>
+        <td><%= f.prefecture_id %></td>
       </tr>
     <% end %>
   </tbody>
