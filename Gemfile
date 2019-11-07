@@ -5,6 +5,7 @@ ruby '2.6.5'
 gem 'roo'
 gem 'activeadmin'
 gem 'devise'
+gem "active_admin_import"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
 # Use postgresql as the database for Active Record
