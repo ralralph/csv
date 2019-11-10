@@ -4,7 +4,11 @@ class FacilitiesController < ApplicationController
   end
 
   def import
-    Facility.import(params[:file])
+    begin
+      Facility.import(params[:file])
+    rescue => error
+      @error = error
+    end
     redirect_to facilities_url
   end
 

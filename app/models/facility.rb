@@ -2,7 +2,7 @@ class Facility < ApplicationRecord
   require 'csv'
 
   before_save { self.capital = capital.to_i}
-  # validates :name, :prefecture_id, presence: true
+  validates :name, :prefecture_id, presence: true
 
   def self.import(file)
     Facility.transaction do

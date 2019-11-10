@@ -1,4 +1,14 @@
 <h1>ユーザー一覧</h1>
+<%= if Facility.errors.any? %>
+  <div class="alert alert-danger ">
+    <ul>
+      <% @error.errors.full_messages.each do |m|%>
+        <li><%= m %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_tag import_users_path, multipart: true do%>
   <%= file_field_tag :file %>
   <%= submit_tag 'インポート'%>
