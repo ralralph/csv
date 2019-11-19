@@ -1,11 +1,4 @@
-<% if @error.present? %>
-  <% @error.each do |e| %>
-    <p><%= e %></p>
-  <% end %>
-<% end %>
-
-
-<%= form_with url: import_facilities_path, multipart: true do |f| %>
+<%= form_with url: import_facilities_path, multipart: true, local: true do |f| %>
   <%= f.file_field :file %>
   <%= f.submit 'インポート' %>
 <% end %>

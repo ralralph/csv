@@ -4,15 +4,18 @@ class FacilitiesController < ApplicationController
   end
 
   def import
-    begin
-      Facility.import(params[:file])
-      binding.irb
-      redirect_to admin_facilities_path, notice: '更新しました。'
-    rescue => error
-      flash[:alert] = "#{error.message}"
-      redirect_to admin_facilities_path
+    if params[:file].blank?
+      redirect_to csv_update_admin_facilities_path, alert: 'ファイルを添付してください。'
+    elsif File.extname(params[:file].original_filename) != ".csv"
+      redirect_to csv_update_admin_facilities_path, alert: 'csvファイルのみ読み込み可能です。'
+    else
+      begin
+        imported_num = Facility.import(params[:file])
+        redirect_to admin_facilities_path, notice: "#{imported_num}件のデータを追加/更新しました。"
+      rescue => error
+        redirect_to csv_update_admin_facilities_path, alert: error.message
+      end
     end
-    # binding.irb
   end
 
 end

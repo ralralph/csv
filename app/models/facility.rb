@@ -5,6 +5,7 @@ class Facility < ApplicationRecord
   validates :name, :prefecture_id, presence: true
 
   def self.import(file)
+    imported_num = 0
     Facility.transaction do
       CSV.foreach(file.path, headers: true) do |row|
         # IDが見つかれば、レコードを呼び出し、見つかれなければ、新しく作成
@@ -13,8 +14,10 @@ class Facility < ApplicationRecord
         facility.attributes = row.to_hash.slice(*updatable_attributes)
         # 保存する
         facility.save!
+        imported_num += 1
       end
     end
+    imported_num
   end
 
   def self.updatable_attributes
