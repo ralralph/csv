@@ -6,10 +6,13 @@ class FacilitiesController < ApplicationController
   def import
     begin
       Facility.import(params[:file])
+      binding.irb
+      redirect_to admin_facilities_path, notice: '更新しました。'
     rescue => error
-      @error = error
+      flash[:alert] = "#{error.message}"
+      redirect_to admin_facilities_path
     end
-    redirect_to facilities_url
+    # binding.irb
   end
 
 end

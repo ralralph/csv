@@ -1,10 +1,6 @@
 ActiveAdmin.register Facility do
   config.per_page = 15
 
-  action_item only: [:index] do
-    link_to 'CSVアップデート', root_path, method: :get
-  end
-
   form do |f|
     inputs  do
       input :name
@@ -30,4 +26,16 @@ ActiveAdmin.register Facility do
     tel
     listed_market
   ]
+
+
+  # csv_update用のボタン配置
+  action_item :import, only: [:index] do
+    link_to 'CSVアップデート', csv_update_admin_facilities_path, method: :get
+  end
+
+  # csv_updateのルーティングを生成
+  collection_action :csv_update, method: :get do
+    render '_csv_update'
+  end
+
 end
