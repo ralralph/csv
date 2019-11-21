@@ -29,13 +29,28 @@ ActiveAdmin.register Facility do
 
 
   # csv_update用のボタン配置
-  action_item :import, only: [:index] do
+  action_item :csv_update, only: [:index] do
     link_to 'CSVアップデート', csv_update_admin_facilities_path, method: :get
   end
 
   # csv_updateのルーティングを生成
   collection_action :csv_update, method: :get do
     render '_csv_update'
+  end
+
+  collection_action :csv_import, method: :post do
+    if params[:file].blank?
+      redirect_to csv_update_admin_facilities_path, alert: 'ファイルを添付してください。'
+    elsif File.extname(params[:file].original_filename) != ".csv"
+      redirect_to csv_update_admin_facilities_path, alert: 'csvファイルのみ読み込み可能です。'
+    else
+      begin
+        imported_num = Facility.csv_import(params[:file])
+        redirect_to admin_facilities_path, notice: "#{imported_num}件のデータを追加/更新しました。"
+      rescue => error
+        redirect_to csv_update_admin_facilities_path, alert: error.message
+      end
+    end
   end
 
 end

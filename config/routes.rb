@@ -4,10 +4,6 @@ Rails.application.routes.draw do
 
   root 'facilities#index'
 
-  resources :facilities do
-    collection { post :import }
-  end
-
   resources :users do
     collection { post :import }
   end

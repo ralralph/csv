@@ -4,7 +4,7 @@ class Facility < ApplicationRecord
   # before_save { self.capital = capital.to_i}
   validates :name, :prefecture_id, presence: true
 
-  def self.import(file)
+  def self.csv_import(file)
     imported_num = 0
     Facility.transaction do
       CSV.foreach(file.path, headers: true) do |row|
